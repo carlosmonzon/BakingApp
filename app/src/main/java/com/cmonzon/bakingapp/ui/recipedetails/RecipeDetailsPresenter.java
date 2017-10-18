@@ -128,6 +128,7 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
             }
         }));
+        view.showTitle(repository.getRecipeName(recipeId));
     }
 
     @Override

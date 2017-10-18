@@ -3,7 +3,6 @@ package com.cmonzon.bakingapp.ui.stepdetails;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.cmonzon.bakingapp.data.Recipe;
 import com.cmonzon.bakingapp.data.RecipesDataSource;
 import com.cmonzon.bakingapp.data.RecipesRepository;
 import com.cmonzon.bakingapp.data.Step;
@@ -19,7 +18,7 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 /**
  * @author cmonzon
  */
-public class StepDetailsPresenter implements StepDetailsContract.Presenter, Consumer<Step> {
+public class StepDetailsPresenter implements StepDetailsContract.Presenter {
 
     @NonNull
     StepDetailsContract.View view;
@@ -63,13 +62,13 @@ public class StepDetailsPresenter implements StepDetailsContract.Presenter, Cons
 
         this.stepIndex = stepIndex;
 //        composite.add(repository.getRecipeStep(recipeId, stepIndex).subscribe(this));
-
+        final String recipeName = repository.getRecipeName(recipeId);
         composite.clear();
         composite.add(repository.getRecipeSteps(recipeId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<Step>>() {
             @Override
             public void accept(@NonNull List<Step> steps) throws Exception {
                 StepDetailsPresenter.this.stepsCount = steps.size();
-                StepDetailsPresenter.this.accept(steps.get(stepIndex));
+                StepDetailsPresenter.this.handleStep(steps.get(stepIndex), recipeName);
             }
         }));
     }
@@ -82,8 +81,8 @@ public class StepDetailsPresenter implements StepDetailsContract.Presenter, Cons
         return progress;
     }
 
-    @Override
-    public void accept(@Nullable Step step) throws Exception {
+
+    private void handleStep(@Nullable Step step, String recipeName) throws Exception {
         if (step == null) {
             return;
         }
@@ -100,5 +99,6 @@ public class StepDetailsPresenter implements StepDetailsContract.Presenter, Cons
         }
         view.showStepsProgress(calculateStepProgress());
         view.showStepDetails(step);
+        view.showTitle(recipeName, step.stepIndex);
     }
 }

@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setDisplayShowHomeEnabled(true);
+        }
 
         Intent intent = getIntent();
 
@@ -150,5 +156,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredients);
         //Now update all widgets
         RecipesAppWidget.updateAppWidgets(this, appWidgetManager, appWidgetIds);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

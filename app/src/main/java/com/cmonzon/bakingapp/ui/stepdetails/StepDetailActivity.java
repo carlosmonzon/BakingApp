@@ -2,6 +2,7 @@ package com.cmonzon.bakingapp.ui.stepdetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.cmonzon.bakingapp.R;
@@ -21,6 +22,11 @@ public class StepDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_detail);
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setDisplayShowHomeEnabled(true);
+        }
         Intent intent = getIntent();
 
         if (intent.hasExtra(RECIPE_ID) && intent.hasExtra(STEP_INDEX)) {
@@ -39,8 +45,13 @@ public class StepDetailActivity extends AppCompatActivity {
 
             // Create the presenter
             new StepDetailsPresenter(fragment, repository, recipeId);
-
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

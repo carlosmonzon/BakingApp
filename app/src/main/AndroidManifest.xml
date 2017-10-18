@@ -19,13 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.recipedetails.RecipeDetailsActivity"
-            android:label="@string/title_activity_recipe_details" />
-        <activity
-            android:name=".ui.stepdetails.StepDetailActivity"
-            android:label="@string/title_activity_step_detail"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.recipedetails.RecipeDetailsActivity" />
+        <activity android:name=".ui.stepdetails.StepDetailActivity" />
 
         <receiver android:name=".ui.widget.RecipesAppWidget">
             <intent-filter>

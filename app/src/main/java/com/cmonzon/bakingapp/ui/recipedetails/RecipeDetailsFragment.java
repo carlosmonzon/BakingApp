@@ -6,6 +6,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,6 +100,14 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     public void showStepSelected(int position) {
         if (adapter != null) {
             adapter.setSelectedItem(position);
+        }
+    }
+
+    @Override
+    public void showTitle(String title) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
         }
     }
     //endregion

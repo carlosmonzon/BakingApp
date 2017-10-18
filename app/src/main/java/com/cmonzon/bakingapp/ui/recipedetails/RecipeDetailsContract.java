@@ -21,6 +21,8 @@ public interface RecipeDetailsContract {
         void showSteps(ArrayList<Step> steps);
 
         void showStepSelected(int position);
+
+        void showTitle(String title);
     }
 
     interface Presenter extends BasePresenter {

@@ -16,6 +16,8 @@ public interface StepDetailsContract {
 
         void showVideoPlayerFullScreen();
 
+        void showTitle(String recipeName, int stepIndex);
+
         void startVideoSource(String videoUrl);
 
         void showStepsProgress(int progress);
