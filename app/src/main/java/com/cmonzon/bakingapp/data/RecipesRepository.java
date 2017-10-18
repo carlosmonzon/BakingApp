@@ -1,14 +1,13 @@
 package com.cmonzon.bakingapp.data;
 
+import android.database.Cursor;
 import android.support.annotation.Nullable;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 
 import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
@@ -54,8 +53,23 @@ public class RecipesRepository implements RecipesDataSource {
     }
 
     @Override
+    public Observable<Recipe> getRecipe(int recipeId) {
+        return localDataSource.getRecipe(recipeId);
+    }
+
+    @Override
+    public String getRecipeName(int recipeId) {
+        return localDataSource.getRecipeName(recipeId);
+    }
+
+    @Override
     public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
         return localDataSource.getRecipeIngredients(recipeId);
+    }
+
+    @Override
+    public Cursor getRecipeIngredientsCursor(int recipeId) {
+        return localDataSource.getRecipeIngredientsCursor(recipeId);
     }
 
     @Override

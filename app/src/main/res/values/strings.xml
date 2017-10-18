@@ -9,8 +9,13 @@
 
     <string name="ingredients_title_format">%1$d Ingredients</string>
     <string name="ingredient_format">\u2022 &#160;&#160;<b>%1$s&#160;%2$s</b>&#160; %3$s &lt;br/&gt;</string>
+    <string name="ingredient_format_single_line">\u2022 &#160;&#160;<b>%1$s&#160;%2$s</b>&#160; %3$s</string>
     <string name="title_activity_recipe_details">RecipeDetailsActivity</string>
     <string name="title_activity_step_detail">StepDetailActivity</string>
     <string name="recipe_steps">Steps</string>
-
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="pin_recipe">Bookmark recipe</string>
+    <string name="pin_recipe_message">Recipe ingredients bookmarked</string>
 </resources>

@@ -36,6 +36,11 @@ public final class DbMapper {
     }
 
     @NonNull
+    public static String getRecipeName(@NonNull Cursor c) {
+        return c.getString(c.getColumnIndex(RecipesModelContract.RecipeEntry.COLUMN_RECIPE_NAME));
+    }
+
+    @NonNull
     public static ContentValues recipeToContentValues(Recipe recipe) {
         checkNotNull(recipe);
         ContentValues values = new ContentValues();

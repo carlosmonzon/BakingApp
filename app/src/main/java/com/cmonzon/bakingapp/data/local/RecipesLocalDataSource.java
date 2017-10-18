@@ -18,6 +18,9 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.cmonzon.bakingapp.data.local.RecipesModelContract.RecipeEntry.COLUMN_RECIPE_ID;
+import static com.cmonzon.bakingapp.data.local.RecipesModelContract.RecipeEntry.COLUMN_RECIPE_NAME;
+
 /**
  * @author cmonzon
  */
@@ -72,11 +75,38 @@ public class RecipesLocalDataSource implements RecipesDataSource {
     }
 
     @Override
+    public Observable<Recipe> getRecipe(int recipeId) {
+        final String tableName = RecipesModelContract.RecipeEntry.TABLE_NAME;
+        return databaseHelper.createQuery(tableName, DbMapper.getSelectByIdQuery(tableName, COLUMN_RECIPE_ID), String.valueOf(recipeId)).mapToOne(recipeMapperFunction);
+    }
+
+    @Override
+    public String getRecipeName(int recipeId) {
+        String name = "";
+        final String[] columns = new String[]{COLUMN_RECIPE_NAME};
+        final String[] args = new String[]{String.valueOf(recipeId)};
+        final String tableName = RecipesModelContract.RecipeEntry.TABLE_NAME;
+        Cursor cursor = databaseHelper.getReadableDatabase().query(tableName, columns, COLUMN_RECIPE_ID + "=?", args, null, null, null);
+        if (cursor.moveToFirst()) {
+            name = DbMapper.getRecipeName(cursor);
+        }
+        return name;
+    }
+
+    @Override
     public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
         final String tableName = RecipesModelContract.IngredientEntry.TABLE_NAME;
         return databaseHelper.createQuery(tableName,
                 DbMapper.getSelectByIdQuery(tableName, RecipesModelContract.IngredientEntry.COLUMN_RECIPE_ID), String.valueOf(recipeId))
                 .mapToList(ingredientMapperFunction);
+    }
+
+    @Override
+    public Cursor getRecipeIngredientsCursor(int recipeId) {
+        final String[] args = new String[]{String.valueOf(recipeId)};
+        final String tableName = RecipesModelContract.IngredientEntry.TABLE_NAME;
+        return databaseHelper.getReadableDatabase().rawQuery(DbMapper.
+                getSelectByIdQuery(tableName, RecipesModelContract.IngredientEntry.COLUMN_RECIPE_ID), args);
     }
 
     @Override

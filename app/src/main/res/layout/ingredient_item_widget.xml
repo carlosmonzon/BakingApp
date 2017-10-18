@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvIngredients"
+    style="@style/TextAppearance.AppCompat.Subhead.Inverse"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/text_margin"
+    android:paddingLeft="@dimen/text_margin"
+    android:paddingRight="@dimen/text_margin"
+    android:paddingTop="@dimen/grid_offset"
+    android:paddingBottom="@dimen/grid_offset"
+    android:paddingStart="@dimen/text_margin"
+    tools:background="@color/colorAccent"
+    tools:text="- First Ingredient" />

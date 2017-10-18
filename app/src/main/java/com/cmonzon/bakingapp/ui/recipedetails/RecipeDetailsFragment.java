@@ -109,7 +109,6 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
         for (Ingredient ingredient : ingredients) {
             builder.append(StringUtils.fromHtml(String.format(getString(R.string.ingredient_format), String.valueOf(ingredient.quantity), ingredient.measure, ingredient.ingredient)));
         }
-        builder.substring(0, builder.length() - 1);//remove last \n
         binding.cvIngredients.tvIngredients.setText(builder.toString());
     }
 

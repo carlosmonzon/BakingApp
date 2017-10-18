@@ -1,5 +1,7 @@
 package com.cmonzon.bakingapp.data.remote;
 
+import android.database.Cursor;
+
 import com.cmonzon.bakingapp.data.Ingredient;
 import com.cmonzon.bakingapp.data.Recipe;
 import com.cmonzon.bakingapp.data.RecipesDataSource;
@@ -42,7 +44,25 @@ public class RecipesRemoteDataSource implements RecipesDataSource {
     }
 
     @Override
+    public Observable<Recipe> getRecipe(int recipeId) {
+        //not supported
+        return null;
+    }
+
+    @Override
+    public String getRecipeName(int recipeId) {
+        //not supported
+        return null;
+    }
+
+    @Override
     public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
+        //not supported
+        return null;
+    }
+
+    @Override
+    public Cursor getRecipeIngredientsCursor(int recipeId) {
         //not supported
         return null;
     }
