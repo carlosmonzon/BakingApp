@@ -158,8 +158,8 @@ public class StepDetailFragment extends Fragment implements StepDetailsContract.
     @Override
     public void showVideoPlayerFullScreen() {
         // Expand video, hide description, hide system UI
-        binding.playerView.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-        binding.playerView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+        binding.exoPlayerView.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+        binding.exoPlayerView.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
         binding.thumbnail.setVisibility(View.GONE);
         binding.tvStepDescription.setVisibility(View.GONE);
         binding.stepper.getRoot().setVisibility(View.GONE);
@@ -192,7 +192,7 @@ public class StepDetailFragment extends Fragment implements StepDetailsContract.
             LoadControl loadControl = new DefaultLoadControl();
             RenderersFactory renderersFactory = new DefaultRenderersFactory(getContext());
             exoPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl);
-            binding.playerView.setPlayer(exoPlayer);
+            binding.exoPlayerView.setPlayer(exoPlayer);
 
             // Set the ExoPlayer.EventListener to this activity.
             exoPlayer.addListener(this);

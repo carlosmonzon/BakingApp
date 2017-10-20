@@ -1,7 +1,10 @@
 package com.cmonzon.bakingapp.data.remote;
 
+import com.cmonzon.bakingapp.BuildConfig;
+
 import java.util.concurrent.TimeUnit;
 
+import cmonzon.com.bakingapp.IdlingResources;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -33,6 +36,11 @@ public class RecipesService {
                 .readTimeout(READ_TIMEOUT_SECS, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build();
+
+        if (BuildConfig.DEBUG) {
+            IdlingResources.registerOkHttp(client);
+        }
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)

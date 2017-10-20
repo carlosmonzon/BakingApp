@@ -28,7 +28,7 @@ task clean(type: Delete) {
 
 ext {
     buildToolsVersion = "26.0.1"
-    supportLibVersion = "25.3.1"
+    supportLibVersion = "26.0.1"
     retrofitVersion = "2.3.0"
     gsonConverterVersion = "2.3.0"
     rxJavaAdapter = "2.3.0"
@@ -40,6 +40,6 @@ ext {
     constraintLayoutVersion = "1.0.2"
     exoPlayerVersion = "r2.4.4"
     picassoVersion = "2.5.2"
-    okhttpVersion = "3.8.0"
+    okhttpVersion = "3.8.1"
 
 }

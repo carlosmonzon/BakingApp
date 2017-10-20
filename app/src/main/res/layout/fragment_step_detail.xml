@@ -19,7 +19,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-            android:id="@+id/playerView"
+            android:id="@+id/exoPlayerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:visibility="@{TextUtils.isEmpty(step.videoURL) ? View.GONE : View.VISIBLE}"
@@ -44,7 +44,7 @@
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playerView"
+            app:layout_constraintTop_toBottomOf="@+id/exoPlayerView"
             app:stepImageUrl="@{step.thumbnailURL}"
             tools:src="@mipmap/ic_launcher" />
 
