@@ -4,6 +4,7 @@ package com.cmonzon.bakingapp.ui.recipedetails;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.cmonzon.bakingapp.R;
 import com.cmonzon.bakingapp.data.Ingredient;
+import com.cmonzon.bakingapp.data.Recipe;
 import com.cmonzon.bakingapp.data.Step;
 import com.cmonzon.bakingapp.databinding.FragmentRecipeDetailsBinding;
 import com.cmonzon.bakingapp.util.StringUtils;
@@ -33,6 +35,8 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     private RecipeDetailsContract.Presenter presenter;
 
     private OnStepSelectedListener listener;
+
+    private Parcelable listState;
 
     public RecipeDetailsFragment() {
         // Required empty public constructor
@@ -69,8 +73,17 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("ListState", binding.rvSteps.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            listState = savedInstanceState.getParcelable("ListState");
+        }
         presenter.loadRecipeDetails();
     }
 
@@ -87,13 +100,14 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     }
 
     @Override
-    public void showIngredients(ArrayList<Ingredient> ingredients) {
-        buildIngredientsList(ingredients);
-    }
-
-    @Override
-    public void showSteps(ArrayList<Step> steps) {
-        adapter.setSteps(steps);
+    public void showRecipeDetails(Recipe recipe) {
+        String ingredientsTitle = String.format(getString(R.string.ingredients_title_format), recipe.ingredients.size());
+        StringBuilder ingredientsBuilder = new StringBuilder();
+        for (Ingredient ingredient : recipe.ingredients) {
+            ingredientsBuilder.append(StringUtils.fromHtml(String.format(getString(R.string.ingredient_format), String.valueOf(ingredient.quantity), ingredient.measure, ingredient.ingredient)));
+        }
+        adapter.setSteps(new ArrayList<>(recipe.steps), ingredientsBuilder.toString(), ingredientsTitle);
+        binding.rvSteps.getLayoutManager().onRestoreInstanceState(listState);
     }
 
     @Override
@@ -111,16 +125,6 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
         }
     }
     //endregion
-
-    private void buildIngredientsList(ArrayList<Ingredient> ingredients) {
-        binding.cvIngredients.tvIngredientsTitle.setText(String.format(getString(R.string.ingredients_title_format), ingredients.size()));
-
-        StringBuilder builder = new StringBuilder();
-        for (Ingredient ingredient : ingredients) {
-            builder.append(StringUtils.fromHtml(String.format(getString(R.string.ingredient_format), String.valueOf(ingredient.quantity), ingredient.measure, ingredient.ingredient)));
-        }
-        binding.cvIngredients.tvIngredients.setText(builder.toString());
-    }
 
     @Override
     public void onStepClick(Step step) {

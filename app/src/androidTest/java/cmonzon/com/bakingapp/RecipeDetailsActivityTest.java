@@ -60,21 +60,21 @@ public class RecipeDetailsActivityTest {
 
     @Test
     public void clickOnStep_showStepDetailsWithVideo() {
-        onView(withId(R.id.rv_steps)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.rv_steps)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
         onView(withText(STEP_NAME_ONE)).check(matches(isDisplayed()));
         onView(allOf(instanceOf(SimpleExoPlayerView.class), withId(R.id.exoPlayerView))).check(matches(isDisplayed()));
     }
 
     @Test
     public void clickOnStep_showStepDetailsWithoutVideo() {
-        onView(withId(R.id.rv_steps)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.rv_steps)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
         onView(withText(STEP_NAME_TWO)).check(matches(isDisplayed()));
         onView(allOf(instanceOf(SimpleExoPlayerView.class), withId(R.id.exoPlayerView))).check(matches(not(isDisplayed())));
     }
 
     @Test
     public void clickOnStepOne_goToNextStep() {
-        onView(withId(R.id.rv_steps)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.rv_steps)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
         onView(withText(STEP_NAME_ONE)).check(matches(isDisplayed()));
         onView(allOf(instanceOf(SimpleExoPlayerView.class), withId(R.id.exoPlayerView))).check(matches(isDisplayed()));
         onView(withId(R.id.btnBack)).check(matches(not(isDisplayed())));

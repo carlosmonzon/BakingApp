@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import com.cmonzon.bakingapp.R;
 import com.cmonzon.bakingapp.data.Step;
 import com.cmonzon.bakingapp.databinding.FragmentStepDetailBinding;
-import com.cmonzon.bakingapp.ui.recipedetails.RecipeDetailsActivity;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -142,6 +141,18 @@ public class StepDetailFragment extends Fragment implements StepDetailsContract.
     @Override
     public void onPause() {
         super.onPause();
+        pausePlayer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resumePlayer();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         releasePlayer();
     }
 
@@ -266,6 +277,20 @@ public class StepDetailFragment extends Fragment implements StepDetailsContract.
         mediaSession.setActive(true);
     }
 
+    private void pausePlayer() {
+        if (exoPlayer != null) {
+            videoLastPosition = exoPlayer.getCurrentPosition();
+            isVideoReady = exoPlayer.getPlayWhenReady();
+            exoPlayer.setPlayWhenReady(false);
+        }
+    }
+
+    private void resumePlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.setPlayWhenReady(isVideoReady);
+        }
+    }
+
     private void releasePlayer() {
         if (exoPlayer != null) {
             videoLastPosition = exoPlayer.getCurrentPosition();
@@ -274,7 +299,6 @@ public class StepDetailFragment extends Fragment implements StepDetailsContract.
             exoPlayer.release();
             exoPlayer = null;
         }
-
         if (mediaSession != null) {
             mediaSession.setActive(false);
         }
